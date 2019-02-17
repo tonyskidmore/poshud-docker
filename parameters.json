@@ -2,20 +2,35 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "sites_aloha_demo_name": {
-            "value": null
+        "deployName": {
+            "value": "aloha-demo"
         },
-        "serverfarms_aloha_demo_name": {
-            "value": null
+        "dockerRegistryUrl": {
+            "value": "https://index.docker.io"
         },
-        "config_web_name": {
-            "value": null
+        "hostingPlanName": {
+            "value": "aloha-demo"
         },
-        "hostNameBindings_aloha.cloud_msp.net_name": {
-            "value": null
+        "hostingEnvironment": {
+            "value": ""
         },
-        "hostNameBindings_aloha_demo.azurewebsites.net_name": {
-            "value": null
+        "location": {
+            "value": "UK South"
+        },
+        "port": {
+            "value": "8585"
+        },
+        "sku": {
+            "value": "Basic"
+        },
+        "skuCode": {
+            "value": "B1"
+        },
+        "workerSize": {
+            "value": "0"
+        },
+        "serverFarmResourceGroup": {
+            "value": "aloha-demo"
         }
     }
 }
