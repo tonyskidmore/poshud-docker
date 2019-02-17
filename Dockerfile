@@ -6,7 +6,7 @@ FROM mcr.microsoft.com/powershell:alpine-3.8
 RUN pwsh -c 'Install-Module universaldashboard -Acceptlicense -Force' && \
     pwsh -c 'Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted' && \
     pwsh -c 'Install-Module -Name Az -Force -Confirm:$false' && \
-    pwsh -c 'Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tonyskidmore/poshud-docker/master/HelloWorldUD-Example.ps1" -Method Get -OutFile /tmp/helloworldud-example.ps1'
+    pwsh -c 'Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tonyskidmore/poshud-docker/master/Get-UdDashboard.ps1" -Method Get -OutFile /tmp/Get-UdDashboard.ps1'
 
-CMD [ "pwsh","-command","& ./tmp/helloworldud-example.ps1" ]
+CMD [ "pwsh","-c","& /tmp/Get-UdDashboard.ps1" ]
 

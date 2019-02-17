@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sites_aloha_demo_name": {
+            "value": null
+        },
+        "serverfarms_aloha_demo_name": {
+            "value": null
+        },
+        "config_web_name": {
+            "value": null
+        },
+        "hostNameBindings_aloha.cloud_msp.net_name": {
+            "value": null
+        },
+        "hostNameBindings_aloha_demo.azurewebsites.net_name": {
+            "value": null
+        }
+    }
+}
