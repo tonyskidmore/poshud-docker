@@ -3,25 +3,20 @@
 $Schedule = New-UDEndpointSchedule -Every 1 -Minute
 
 $EveryMinute = New-UDEndpoint -Schedule $Schedule -Endpoint {
-    $Cache:ModuleCount = (Get-Module -ListAvailable).Count
+    $Data = Import-Csv -Path "/var/alohadata/abc-runner1-config-reports.csv"
 }
 
-$moduleCount = New-UDEndpoint -Url "/moduleCount" -Endpoint {
-    (Get-Module -ListAvailable).Count
-}
 
-$CachedModuleCount = New-UDEndpoint -Url "/cached-moduleCount" -Endpoint {
-    $Cache:ModuleCount
-}
+$Dashboard = New-UDDashboard -Title "Charts - Legend" -Content {
 
-$dashboard = New-UDDashboard -Title "Aloha" -Content {
-    New-UDCounter -Title "Aloha" -Id "Counter" -Endpoint {
-        $Cache:ModuleCount
-    } -AutoRefresh -RefreshInterval 1
-}
+    $LegendOptions = New-UDChartLegendOptions -Position bottom
+    $Options = New-UDLineChartOptions -LegendOptions $LegendOptions
 
-$MyDashboard = New-UDDashboard -Title "Hello Aloha" -Content {
-    New-UDCard -Title "Say Hello to ALOHA"
-}
+    New-UDChart -Title "Bottom Legend" -Type "Line" -Endpoint {
+        $Data | Out-UDChartData -LabelProperty "ALOHA"  -Dataset @(
+            New-UDLineChartDataset -Label "ALOHA Data" -DataProperty RegStandardFail -BackgroundColor "#205D4CFF" -BorderColor "#5D4CFF" -BorderWidth 3
+        )
+    } -Options $Options
 
-Start-UDDashboard -Port 8585 -Dashboard $dashboard -Name 'ALOHA' -Wait -Endpoint @($EveryMinute, $ModuleCount, $CachedModuleCount)
+
+Start-UDDashboard -Port 8585 -Dashboard $Dashboard -Name 'ALOHA' -Wait -Endpoint @($EveryMinute, $ModuleCount, $CachedModuleCount)
