@@ -19,4 +19,4 @@ $Dashboard = New-UDDashboard -Title "Charts - Legend" -Content {
     } -Options $Options
 
 
-Start-UDDashboard -Port 8585 -Dashboard $Dashboard -Name 'ALOHA' -Wait -Endpoint @($EveryMinute, $ModuleCount, $CachedModuleCount)
+Start-UDDashboard -Port 8585 -Dashboard $Dashboard -Name 'ALOHA' -Wait -Endpoint @($EveryMinute)
