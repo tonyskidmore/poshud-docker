@@ -1,13 +1,11 @@
 
-<#
+
 $Schedule = New-UDEndpointSchedule -Every 1 -Minute
 
 $EveryMinute = New-UDEndpoint -Schedule $Schedule -Endpoint {
     $Data = Import-Csv -Path "/var/alohadata/abc-runner1-config-reports.csv"
 }
-#>
 
-$Data = Import-Csv -Path "/var/alohadata/abc-runner1-config-reports.csv"
 
 $Dashboard = New-UDDashboard -Title "Charts - Legend" -Content {
 
@@ -21,5 +19,4 @@ $Dashboard = New-UDDashboard -Title "Charts - Legend" -Content {
     } -Options $Options
 }
 
-# Start-UDDashboard -Port 8585 -Dashboard $Dashboard -Name 'ALOHA' -Wait -Endpoint @($EveryMinute)
-Start-UDDashboard -Port 8585 -Dashboard $Dashboard -Name 'ALOHA' -Wait
+Start-UDDashboard -Port 8585 -Dashboard $Dashboard -Name 'ALOHA' -Wait -Endpoint @($EveryMinute)
