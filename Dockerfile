@@ -7,6 +7,8 @@ RUN pwsh -c 'Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted' && 
     # pwsh -c 'Install-Module universaldashboard -Acceptlicense -Force' && \
     pwsh -c 'Install-Module UniversalDashboard.Community -Acceptlicense -Force' && \
     pwsh -c 'Install-Module -Name Az -Force -Confirm:$false' && \
-    pwsh -c 'Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tonyskidmore/poshud-docker/master/Get-UdDashboard.ps1" -Method Get -OutFile /tmp/Get-UdDashboard.ps1'
+    pwsh -c 'New-Item -Path /app -ItemType Directory' && \
 
-CMD [ "pwsh","-c","& /tmp/Get-UdDashboard.ps1" ]
+COPY Get-UdDashboard.ps1 /app
+
+CMD [ "pwsh","-c","& /app/Get-UdDashboard.ps1" ]
