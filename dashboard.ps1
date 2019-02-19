@@ -14,7 +14,7 @@ $CachedModuleCount = New-UDEndpoint -Url "/cached-moduleCount" -Endpoint {
     $Cache:ModuleCount
 }
 
-$dashboard = New-UDDashboard -Title "Test" -Content {
+$dashboard = New-UDDashboard -Title "Aloha" -Content {
     New-UDCounter -Title "Aloha" -Id "Counter" -Endpoint {
         $Cache:ModuleCount
     } -AutoRefresh -RefreshInterval 1
