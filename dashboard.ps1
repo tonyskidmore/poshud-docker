@@ -17,6 +17,6 @@ $Dashboard = New-UDDashboard -Title "Charts - Legend" -Content {
             New-UDLineChartDataset -Label "ALOHA Data" -DataProperty RegStandardFail -BackgroundColor "#205D4CFF" -BorderColor "#5D4CFF" -BorderWidth 3
         )
     } -Options $Options
-
+}
 
 Start-UDDashboard -Port 8585 -Dashboard $Dashboard -Name 'ALOHA' -Wait -Endpoint @($EveryMinute)
