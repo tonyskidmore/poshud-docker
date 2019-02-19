@@ -15,7 +15,7 @@ $Dashboard = New-UDDashboard -Title "Grids - Simple" -Content {
     New-UDGrid -Title "Animals" -Headers @("Animal", "Order") -Properties @("Animal", "Order") -Endpoint {
         #By default, filtering checks all properties. This overrides it to only check the animal property.
         #$filterText is always provided in a grid endpoint
-        $Data | Where-Object Animal -Match $filterText | Out-UDGridData -NoAutoFilter
+        $Data | Where-Object Animal -Match $filterText | Out-UDGridData
     }
 }
 
