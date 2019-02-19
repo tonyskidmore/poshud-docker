@@ -5,4 +5,4 @@ docker run \
 --name ud \
 --mount type=bind,source=/var/alohadata,target=/app/data \
 universaldashboard:latest
-/bin/sh
+/bin/bash
