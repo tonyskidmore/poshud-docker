@@ -1,22 +1,15 @@
-<#
-    Provies an example of creating a chart with multiple datasets.
-#>
-
 Import-Module UniversalDashboard.Community
 
-$Data = @(
-    [PSCustomObject]@{Animal="Frog";Order="Anura"}
-    [PSCustomObject]@{Animal="Tiger";Order="Carnivora"}
-    [PSCustomObject]@{Animal="Bat";Order="Chiroptera"}
-    [PSCustomObject]@{Animal="Fox";Order="Carnivora"}
-)
+$Data = Import-CSV -Path /app/data/abc-runner1-config-reports.csv
 
-$Dashboard = New-UDDashboard -Title "Grids - Simple" -Content {
-    New-UDGrid -Title "Animals" -Headers @("Animal", "Order") -Properties @("Animal", "Order") -Endpoint {
-        #By default, filtering checks all properties. This overrides it to only check the animal property.
-        #$filterText is always provided in a grid endpoint
-        $Data | Where-Object Animal -Match $filterText | Out-UDGridData
-    }
+$Dashboard = New-UDDashboard -Title "ALOHA - Compliance Results" -Content {
+        New-UDChart -Title "Bottom Legend" -Type "Bar" -Endpoint {
+                $Data | Out-UDChartData -LabelProperty "ComputerName"  -Dataset @(
+                        New-UDBarChartDataset -Label "Pass" -DataProperty RegStandardPass -BackgroundColor "green" -BorderColor "black" -BorderWidth 2
+                        New-UDBarChartDataset -Label "Fail" -DataProperty RegStandardFail -BackgroundColor "red" -BorderColor "black" -BorderWidth 2
+                )
+        }
 }
+
 
 Start-UDDashboard -Port 8585 -Dashboard $Dashboard -Name 'ALOHA' -Wait -AutoReload
