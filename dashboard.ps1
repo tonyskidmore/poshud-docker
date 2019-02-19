@@ -5,20 +5,24 @@
 Import-Module UniversalDashboard.Community
 
 $Data = @(
-    @{Animal="Frog";Count=10;Babies=3}
-    @{Animal="Tiger";Count=1;Babies=0}
-    @{Animal="Bat";Count=34;Babies=30}
-    @{Animal="Fox";Count=20;Babies=10}
+    @{Animal="Frog";Count=10}
+    @{Animal="Tiger";Count=1}
+    @{Animal="Bat";Count=34}
+    @{Animal="Fox";Count=20}
 )
 
-$Dashboard = New-UDDashboard -Title "Charts - Multiple Datasets" -Content {
-    New-UDChart -Title "Bottom Legend" -Type "Bar" -Endpoint {
+$Dashboard = New-UDDashboard -Title "Charts - Colors" -Content {
+    New-UDChart -Title "Line Chart" -Type "Line" -Endpoint {
         $Data | Out-UDChartData -LabelProperty "Animal"  -Dataset @(
-            New-UDBarChartDataset -Label "Adults" -DataProperty Count -BackgroundColor "#205D4CFF" -BorderColor "#5D4CFF" -BorderWidth 3
-            New-UDBarChartDataset -Label "Babies" -DataProperty Babies -BackgroundColor "#20A07DFF" -BorderColor "#A07DFF" -BorderWidth 3
+            New-UDLineChartDataset -Label "Animals" -DataProperty Count -BackgroundColor "#234FE2" -BorderColor "#35FF8A" -BorderWidth 3
         )
-    } 
-}
+    }
 
+    New-UDChart -Title "Line Chart without Underfill" -Type "Line" -Endpoint {
+        $Data | Out-UDChartData -LabelProperty "Animal"  -Dataset @(
+            New-UDLineChartDataset -Label "Animals" -DataProperty Count  -BorderColor "#35FF8A" -BorderWidth 3 -Fill $false
+        )
+    }
+}
 
 Start-UDDashboard -Port 8585 -Dashboard $Dashboard -Name 'ALOHA' -Wait -AutoReload
