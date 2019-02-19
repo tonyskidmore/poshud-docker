@@ -6,17 +6,13 @@ $EveryMinute = New-UDEndpoint -Schedule $Schedule -Endpoint {
     $Data = Import-Csv -Path "/var/alohadata/abc-runner1-config-reports.csv"
 }
 
-
-$Dashboard = New-UDDashboard -Title "Charts - Legend" -Content {
-
-    $LegendOptions = New-UDChartLegendOptions -Position bottom
-    $Options = New-UDLineChartOptions -LegendOptions $LegendOptions
-
-    New-UDChart -Title "Bottom Legend" -Type "Line" -Endpoint {
+$Dashboard = New-UDDashboard -Title "Charts - Multiple Datasets" -Content {
+    New-UDChart -Title "Bottom Legend" -Type "Bar" -Endpoint {
         $Data | Out-UDChartData -LabelProperty "ComputerName"  -Dataset @(
-            New-UDLineChartDataset -Label "ALOHA Data" -DataProperty RegStandardFail -BackgroundColor "#205D4CFF" -BorderColor "#5D4CFF" -BorderWidth 3
+            New-UDBarChartDataset -Label "Pass" -DataProperty RegStandardPass -BackgroundColor "#205D4CFF" -BorderColor "#5D4CFF" -BorderWidth 3
+            New-UDBarChartDataset -Label "Fail" -DataProperty RegStandardFail -BackgroundColor "#20A07DFF" -BorderColor "#A07DFF" -BorderWidth 3
         )
-    } -Options $Options
+    } 
 }
 
 Start-UDDashboard -Port 8585 -Dashboard $Dashboard -Name 'ALOHA' -Wait -Endpoint @($EveryMinute)
