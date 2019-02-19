@@ -107,3 +107,23 @@ if(Test-Path $parametersFilePath) {
 } else {
     New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -Name $deploymentName -TemplateFile $templateFilePath;
 }
+
+<#
+Bring your own Storage to App Service now in Public Preview
+https://blogs.msdn.microsoft.com/appserviceteam/2018/09/24/announcing-bring-your-own-storage-to-app-service/
+
+az login
+az account list
+az account set –subscription “YourSubscriptionName”
+az webapp config storage-account -h
+
+ az webapp config storage-account add -g aloha-demo-rg -n aloha-demo \
+--custom-id MediaVolume \
+--storage-type AzureFiles \
+--account-name abcclientstorage \
+--share-name   aloha   \
+--access-key   [storage access key] \
+--mount-path   /var/media
+
+az webapp config storage-account list -g aloha-demo-rg -n aloha-demo
+#>

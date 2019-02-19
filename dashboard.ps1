@@ -2,7 +2,7 @@
 
 $Schedule = New-UDEndpointSchedule -Every 1 -Minute
 
-$EveryHour = New-UDEndpoint -Schedule $Schedule -Endpoint {
+$EveryMinute = New-UDEndpoint -Schedule $Schedule -Endpoint {
     $Cache:ModuleCount = (Get-Module -ListAvailable).Count
 }
 
@@ -15,13 +15,13 @@ $CachedModuleCount = New-UDEndpoint -Url "/cached-moduleCount" -Endpoint {
 }
 
 $dashboard = New-UDDashboard -Title "Test" -Content {
-    New-UDCounter -Title "Test" -Id "Counter" -Endpoint {
+    New-UDCounter -Title "Aloha" -Id "Counter" -Endpoint {
         $Cache:ModuleCount
     } -AutoRefresh -RefreshInterval 1
 }
 
-$MyDashboard = New-UDDashboard -Title "Hello World" -Content {
+$MyDashboard = New-UDDashboard -Title "Hello Aloha" -Content {
     New-UDCard -Title "Say Hello to ALOHA"
 }
 
-Start-UDDashboard -Port 8585 -Dashboard $dashboard -Name 'ALOHA' -Wait -Endpoint @($EveryHour, $ModuleCount, $CachedModuleCount)
+Start-UDDashboard -Port 8585 -Dashboard $dashboard -Name 'ALOHA' -Wait -Endpoint @($EveryMinute, $ModuleCount, $CachedModuleCount)
