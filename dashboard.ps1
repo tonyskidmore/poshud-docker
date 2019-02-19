@@ -5,23 +5,17 @@
 Import-Module UniversalDashboard.Community
 
 $Data = @(
-    @{Animal="Frog";Count=10}
-    @{Animal="Tiger";Count=1}
-    @{Animal="Bat";Count=34}
-    @{Animal="Fox";Count=20}
+    [PSCustomObject]@{Animal="Frog";Order="Anura"}
+    [PSCustomObject]@{Animal="Tiger";Order="Carnivora"}
+    [PSCustomObject]@{Animal="Bat";Order="Chiroptera"}
+    [PSCustomObject]@{Animal="Fox";Order="Carnivora"}
 )
 
-$Dashboard = New-UDDashboard -Title "Charts - Colors" -Content {
-    New-UDChart -Title "Line Chart" -Type "Line" -Endpoint {
-        $Data | Out-UDChartData -LabelProperty "Animal"  -Dataset @(
-            New-UDLineChartDataset -Label "Animals" -DataProperty Count -BackgroundColor "#234FE2" -BorderColor "#35FF8A" -BorderWidth 3
-        )
-    }
-
-    New-UDChart -Title "Line Chart without Underfill" -Type "Line" -Endpoint {
-        $Data | Out-UDChartData -LabelProperty "Animal"  -Dataset @(
-            New-UDLineChartDataset -Label "Animals" -DataProperty Count  -BorderColor "#35FF8A" -BorderWidth 3 -Fill $false
-        )
+$Dashboard = New-UDDashboard -Title "Grids - Simple" -Content {
+    New-UDGrid -Title "Animals" -Headers @("Animal", "Order") -Properties @("Animal", "Order") -Endpoint {
+        #By default, filtering checks all properties. This overrides it to only check the animal property.
+        #$filterText is always provided in a grid endpoint
+        $Data | Where-Object Animal -Match $filterText | Out-UDGridData -NoAutoFilter
     }
 }
 
