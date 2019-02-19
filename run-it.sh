@@ -3,6 +3,6 @@ docker run \
 -it \
 -p 80:8585 \
 --name ud \
---mount type=bind,source=/var/alohadata,target=/var/alohadata \
+--mount type=bind,source=/var/alohadata,target=/app/data \
 universaldashboard:latest
 /bin/sh
