@@ -21,4 +21,4 @@ $Dashboard = New-UDDashboard -Title "Charts - Multiple Datasets" -Content {
 }
 
 
-Start-UDDashboard -Port 8585 -Dashboard $Dashboard -Name 'ALOHA' -Wait
+Start-UDDashboard -Port 8585 -Dashboard $Dashboard -Name 'ALOHA' -Wait -AutoReload
