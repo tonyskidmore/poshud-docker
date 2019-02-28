@@ -7,7 +7,7 @@ $EveryMinute = New-UDEndpoint -Schedule $Schedule -Endpoint {
 }
 
 $Dashboard = New-UDDashboard -Title "ALOHA - Compliance Results" -Content {
-        New-UDChart -Title "Bottom Legend" -Type "Bar" -Endpoint {
+        New-UDChart -Title "Standards Compliance" -Type "Bar" -Endpoint {
                 $Cache:Data | Out-UDChartData -LabelProperty "ComputerName"  -Dataset @(
                         New-UDBarChartDataset -Label "Pass" -DataProperty RegStandardPass -BackgroundColor "green" -BorderColor "black" -BorderWidth 2
                         New-UDBarChartDataset -Label "Fail" -DataProperty RegStandardFail -BackgroundColor "red" -BorderColor "black" -BorderWidth 2
